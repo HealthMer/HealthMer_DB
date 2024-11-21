@@ -64,7 +64,7 @@ CREATE TABLE `timer_info` (
     `title` VARCHAR(255) NOT NULL,
     `views_count` BIGINT NOT NULL DEFAULT 0,
     `complete_count` BIGINT NOT NULL DEFAULT 0,
-    `level` INT NOT NULL,
+    `level` INT NOT NULL DEFAULT 1,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
@@ -72,14 +72,14 @@ CREATE TABLE `timer_info` (
 
 CREATE TABLE `share_board` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `timer_info_id` BIGINT NOT NULL,
+    `timer_info_id` BIGINT,
     `title` VARCHAR(255) NOT NULL,
     `contents` TEXT NOT NULL,
     `post_views` BIGINT NOT NULL,
     `user_views` BIGINT NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (`timer_info_id`) REFERENCES `timer_info`(`id`),
+    FOREIGN KEY (`timer_info_id`) REFERENCES `timer_info`(`id`) ON DELETE SET NULL,
     PRIMARY KEY (`id`)
 );
 
