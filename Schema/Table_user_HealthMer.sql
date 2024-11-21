@@ -30,6 +30,11 @@ VALUES
 (1, 1, 'admin', 'password123', 'admin@example.com', 'admin', 30, 1);
 -- (2, 2, 'user1', 'password123', 'user1@example.com', 'user1', 25, 2);
 
+-- Admin 계정 생성
+INSERT IGNORE INTO `user` (`user_type_id`, `sign_up_route_id`, `user_id`, `password`, `email`, `nickname`, `age`, `gender_id`)
+VALUES
+(1, 1, 'admin', 'healthMer1234', 'admin@example.com', 'admin', 30, 1);
+
 truncate table `user`;
 SELECT * from user;
 /*

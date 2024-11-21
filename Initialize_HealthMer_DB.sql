@@ -40,14 +40,14 @@ CREATE TABLE `health_category` (
 -- 2. 주요 엔티티 테이블
 CREATE TABLE `user` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `user_type_id` TINYINT NOT NULL,
+    `user_type_id` TINYINT,
     `sign_up_route_id` TINYINT NOT NULL,
-    `user_id` VARCHAR(255) NOT NULL,
+    `user_id` VARCHAR(255),
     `password` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
-    `nickname` VARCHAR(255) NOT NULL,
-    `age` TINYINT NOT NULL,
-    `gender_id` TINYINT NOT NULL,
+    `nickname` VARCHAR(255),
+    `age` TINYINT,
+    `gender_id` TINYINT,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     UNIQUE (`email`),
@@ -62,8 +62,8 @@ CREATE TABLE `timer_info` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
     `user_id` BIGINT NOT NULL,
     `title` VARCHAR(255) NOT NULL,
-    `views_count` BIGINT NOT NULL,
-    `complete_count` BIGINT NOT NULL,
+    `views_count` BIGINT NOT NULL DEFAULT 0,
+    `complete_count` BIGINT NOT NULL DEFAULT 0,
     `level` INT NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
@@ -90,7 +90,7 @@ CREATE TABLE `routine_info` (
     `time` SMALLINT NOT NULL,
     `is_rest` TINYINT NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`timer_info_id`) REFERENCES `timer_info`(`id`)
+    FOREIGN KEY (`timer_info_id`) REFERENCES `timer_info`(`id`) ON DELETE CASCADE
 );
 
 -- 3. 연관 테이블
@@ -136,7 +136,7 @@ CREATE TABLE `timer_category` (
     `health_category_id` BIGINT NOT NULL,
     PRIMARY KEY (`timer_info_id`, `health_category_id`),
     FOREIGN KEY (`timer_info_id`) REFERENCES `timer_info`(`id`),
-    FOREIGN KEY (`health_category_id`) REFERENCES `health_category`(`id`)
+    FOREIGN KEY (`health_category_id`) REFERENCES `health_category`(`id`) ON DELETE CASCADE
 );
 
 -- ------------------------------------------------------------------------Default Value Input
@@ -159,7 +159,6 @@ INSERT IGNORE INTO `window_mode` (`id`, `name`) VALUES
 INSERT INTO `user_type` (`type_name`) VALUES
 ('Admin'),
 ('Member');
-
 
 -- 초기 값 세팅
 INSERT INTO `sign_up_route` (`route_name`) VALUES
