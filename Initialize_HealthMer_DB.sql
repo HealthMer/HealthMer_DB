@@ -136,7 +136,7 @@ CREATE TABLE `timer_category` (
     `health_category_id` BIGINT NOT NULL,
     PRIMARY KEY (`timer_info_id`, `health_category_id`),
     FOREIGN KEY (`timer_info_id`) REFERENCES `timer_info`(`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`health_category_id`) REFERENCES `health_category`(`id`)
+    FOREIGN KEY (`health_category_id`) REFERENCES `health_category`(`id`) ON DELETE CASCADE
 );
 
 -- ------------------------------------------------------------------------Default Value Input
